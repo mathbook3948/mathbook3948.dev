@@ -39,7 +39,7 @@ const AdminConfigCategory = () => {
     <>
       <div className="flex flex-row items-center justify-end mb-2 gap-2">
         <AdminConfigCategoryDialog />
-        <Button type="button" onClick={handleSave}>
+        <Button type="button" className="cursor-pointer" onClick={handleSave}>
           저장
         </Button>
       </div>
