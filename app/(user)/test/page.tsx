@@ -1,13 +1,9 @@
-import getAdmin from "@/actions/get-admin";
+import getAdminCategoryList from "@/actions/category/get-admin-category-list";
 
 const TestPage = async () => {
-    const res = await getAdmin()
+  const res = await getAdminCategoryList();
 
-    return (
-        <div>
-            {JSON.stringify(res)}
-        </div>
-    )
-}
+  return <div>{JSON.stringify(res)}</div>;
+};
 
-export default TestPage
+export default TestPage;
