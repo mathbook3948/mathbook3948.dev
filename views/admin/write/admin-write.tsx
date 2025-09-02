@@ -6,23 +6,19 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
-import { useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const AdminWrite = () => {
-  const extensions = useMemo(
-    () => [
+  const editor = useEditor({
+    extensions: [
       StarterKit,
       Underline,
       Link.configure({ openOnClick: false }),
       Image,
-      Placeholder.configure({ placeholder: "내용을 입력하세요..." }),
+      Placeholder.configure({
+        placeholder: "내용을 입력하세요...",
+      }),
     ],
-    [],
-  );
-
-  const editor = useEditor({
-    extensions,
     content: "",
     immediatelyRender: false,
     editable: true,
