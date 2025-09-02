@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { Config } from "@/constants/config-constant";
 
 export async function GET(req: NextRequest) {
   const appFavicon = await prisma.config.findFirst({
     where: {
-      key: "APP_FAVICON",
+      key: Config.APP_FAVICON,
     },
   });
 

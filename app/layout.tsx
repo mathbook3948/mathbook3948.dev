@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/views/shared/navbar";
 import getAppTitle from "@/actions/common/get-app-title";
 import { prisma } from "@/lib/prisma";
+import { Config } from "@/constants/config-constant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,7 @@ const RootLayout = async ({
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteConfig = await prisma.config.findFirst({
-    where: { key: "APP_TITLE" },
+    where: { key: Config.APP_TITLE },
   });
 
   return {

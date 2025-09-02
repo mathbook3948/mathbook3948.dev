@@ -1,11 +1,12 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { Config } from "@/constants/config-constant";
 
 const getAppTitle = async (): Promise<string> => {
   const appTitle = await prisma.config.findFirst({
     where: {
-      key: "APP_TITLE",
+      key: Config.APP_TITLE,
     },
   });
 
