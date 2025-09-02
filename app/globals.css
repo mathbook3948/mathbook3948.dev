@@ -129,3 +129,9 @@ p.is-editor-empty:first-child::before {
   height: 0;
   pointer-events: none;
 }
+/*Tiptap heading*/
+.tiptap h1 { @apply text-3xl font-bold leading-tight; }
+.tiptap h2 { @apply text-2xl font-semibold; }
+.tiptap h3 { @apply text-xl font-semibold; }
+.tiptap h4 { @apply text-lg font-medium; }
+.tiptap h1, .tiptap h2, .tiptap h3, .tiptap h4 { @apply mt-4 mb-2; }

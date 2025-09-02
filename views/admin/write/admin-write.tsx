@@ -1,14 +1,36 @@
 "use client";
 
-import { EditorContent, useEditor } from "@tiptap/react";
+import AdminWriteContent from "@/views/admin/write/admin-write-content";
+import { useEditor } from "@tiptap/react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
+import { Placeholder } from "@tiptap/extensions";
 import Image from "@tiptap/extension-image";
-import Placeholder from "@tiptap/extension-placeholder";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { AdminWriteSchema, AdminWriteSchemaType } from "@/schemas/admin-write-schema";
+import AdminWriteTitle from "@/views/admin/write/admin-write-title";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import AdminWriteToolbar from "@/views/admin/write/admin-write-toolbar";
+import { FontSize, TextStyle } from "@tiptap/extension-text-style";
 
 const AdminWrite = () => {
+  /**
+   * useForm
+   * */
+  const form = useForm<AdminWriteSchemaType>({
+    resolver: zodResolver(AdminWriteSchema),
+    defaultValues: {
+      title: "",
+      content: "",
+    },
+  });
+
+  /**
+   * tiptap 에디터 정의
+   * */
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -18,6 +40,8 @@ const AdminWrite = () => {
       Placeholder.configure({
         placeholder: "내용을 입력하세요...",
       }),
+      TextStyle,
+      FontSize,
     ],
     content: "",
     immediatelyRender: false,
@@ -37,19 +61,25 @@ const AdminWrite = () => {
       },
     },
     onUpdate: ({ editor }) => {
-      // 디버그용: 입력되면 여기 계속 호출됨
-      // console.log(editor.getText());
+      form.setValue("content", editor.getHTML());
     },
   });
 
-  if (!editor) return null;
+  const handleSubmit = async (value: AdminWriteSchemaType) => {
+    console.log(value);
+  };
 
   return (
-    <div className="mx-auto">
-      <ScrollArea className="h-[80vh]">
-        <EditorContent editor={editor} className="max-w-4xl" />
-      </ScrollArea>
-    </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <div className="mx-auto flex flex-col gap-4">
+          <AdminWriteTitle form={form} />
+          <AdminWriteToolbar editor={editor} />
+          <AdminWriteContent editor={editor} />
+        </div>
+        <Button type="submit">저장</Button>
+      </form>
+    </Form>
   );
 };
 
