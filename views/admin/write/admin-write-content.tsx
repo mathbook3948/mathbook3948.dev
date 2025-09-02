@@ -11,7 +11,7 @@ const AdminWriteContent = ({ editor }: AdminWriteContentProps) => {
   if (!editor) return null;
 
   return (
-    <ScrollArea className="h-[80vh]">
+    <ScrollArea className="h-[75vh]">
       <EditorContent editor={editor} className="max-w-4xl" />
     </ScrollArea>
   );
