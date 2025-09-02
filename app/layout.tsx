@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/views/shared/navbar";
-import getAppTitle from "@/actions/common/get-app-title";
 import { prisma } from "@/lib/prisma";
 import { Config } from "@/constants/config-constant";
+import getAppTitle from "@/actions/common/get-app-title";
+import Navbar from "@/views/shared/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +24,14 @@ const RootLayout = async ({
   const appTitle = await getAppTitle();
 
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
-        <Navbar appTitle={appTitle} />
-        <div className="w-full max-w-4xl mx-auto p-4">{children}</div>
+    <html lang="ko">
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <main className="antialiased min-h-screen p-4 pt-0">
+          <div className="w-full max-w-4xl mx-auto">
+            <Navbar appTitle={appTitle} />
+            {children}
+          </div>
+        </main>
       </body>
     </html>
   );
