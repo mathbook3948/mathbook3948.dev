@@ -12,7 +12,6 @@ import Image from "@tiptap/extension-image";
 import { AdminWriteSchema, AdminWriteSchemaType } from "@/schemas/admin-write-schema";
 import AdminWriteTitle from "@/views/admin/write/admin-write-title";
 import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import AdminWriteToolbar from "@/views/admin/write/admin-write-toolbar";
 import { FontSize, TextStyle } from "@tiptap/extension-text-style";
 
@@ -48,7 +47,7 @@ const AdminWrite = () => {
     editable: true,
     editorProps: {
       attributes: {
-        class: "min-h-[400px] focus:!outline-none",
+        class: "min-h-[370px] focus:!outline-none",
         spellcheck: "false",
       },
       handlePaste: function (view, event) {
@@ -72,12 +71,12 @@ const AdminWrite = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <div className="mx-auto flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <AdminWriteTitle form={form} />
           <AdminWriteToolbar editor={editor} />
           <AdminWriteContent editor={editor} />
         </div>
-        <Button type="submit">저장</Button>
+        {/*<AdminWriteSave />*/}
       </form>
     </Form>
   );

@@ -32,8 +32,8 @@ const RootLayout = async ({
   return (
     <html lang="ko">
       <body className={pretendard.className}>
-        <main className="antialiased min-h-screen p-4 pt-0">
-          <div className="w-full max-w-4xl mx-auto">
+        <main className="antialiased min-h-screen">
+          <div className="w-full lg:max-w-4xl px-4 mx-auto">
             <Navbar appTitle={appTitle} />
             {children}
           </div>

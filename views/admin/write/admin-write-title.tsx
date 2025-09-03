@@ -17,7 +17,7 @@ const AdminWriteTitle = ({ form }: AdminWriteTitleProps) => {
         <FormItem>
           <FormControl>
             <input
-              className="text-4xl font-bold placeholder-muted-foreground outline-none"
+              className="min-w-0 truncate focus:truncate-0 text-4xl font-bold placeholder-muted-foreground outline-none"
               placeholder="제목을 입력하세요..."
               {...field}
             />

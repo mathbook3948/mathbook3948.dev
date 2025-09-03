@@ -135,3 +135,9 @@ p.is-editor-empty:first-child::before {
 .tiptap h3 { @apply text-xl font-semibold; }
 .tiptap h4 { @apply text-lg font-medium; }
 .tiptap h1, .tiptap h2, .tiptap h3, .tiptap h4 { @apply mt-4 mb-2; }
+
+/*Tiptap 1,2,3, - 처리*/
+.tiptap ol { list-style: decimal; margin-left: 1.25rem; }
+.tiptap ul { list-style: disc; margin-left: 1.25rem; }
+.tiptap li { list-style: inherit; }
+.tiptap ol > li::marker { font-variant-numeric: tabular-nums; }
