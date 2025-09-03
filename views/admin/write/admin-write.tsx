@@ -14,6 +14,7 @@ import AdminWriteTitle from "@/views/admin/write/admin-write-title";
 import { Form } from "@/components/ui/form";
 import AdminWriteToolbar from "@/views/admin/write/admin-write-toolbar";
 import { FontSize, TextStyle } from "@tiptap/extension-text-style";
+import AdminWriteSave from "@/views/admin/write/admin-write-save";
 
 const AdminWrite = () => {
   /**
@@ -70,13 +71,13 @@ const AdminWrite = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="relative">
         <div className="flex flex-col gap-4">
           <AdminWriteTitle form={form} />
           <AdminWriteToolbar editor={editor} />
           <AdminWriteContent editor={editor} />
         </div>
-        {/*<AdminWriteSave />*/}
+        <AdminWriteSave />
       </form>
     </Form>
   );
