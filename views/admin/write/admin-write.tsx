@@ -15,8 +15,12 @@ import { Form } from "@/components/ui/form";
 import AdminWriteToolbar from "@/views/admin/write/admin-write-toolbar";
 import { FontSize, TextStyle } from "@tiptap/extension-text-style";
 import AdminWriteSave from "@/views/admin/write/admin-write-save";
+import { useState } from "react";
+import AdminWriteDialog from "@/views/admin/write/admin-write-dialog";
 
 const AdminWrite = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   /**
    * useForm
    * */
@@ -66,7 +70,7 @@ const AdminWrite = () => {
   });
 
   const handleSubmit = async (value: AdminWriteSchemaType) => {
-    console.log(value);
+    setIsOpen(true);
   };
 
   return (
@@ -78,6 +82,7 @@ const AdminWrite = () => {
           <AdminWriteContent editor={editor} />
         </div>
         <AdminWriteSave />
+        <AdminWriteDialog isOpen={isOpen} setIsOpen={setIsOpen} />
       </form>
     </Form>
   );
