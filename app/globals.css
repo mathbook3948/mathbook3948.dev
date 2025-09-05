@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import 'highlight.js/styles/github.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -116,6 +117,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -129,15 +131,57 @@ p.is-editor-empty:first-child::before {
   height: 0;
   pointer-events: none;
 }
+
 /*Tiptap heading*/
-.tiptap h1 { @apply text-3xl font-bold leading-tight; }
-.tiptap h2 { @apply text-2xl font-semibold; }
-.tiptap h3 { @apply text-xl font-semibold; }
-.tiptap h4 { @apply text-lg font-medium; }
-.tiptap h1, .tiptap h2, .tiptap h3, .tiptap h4 { @apply mt-4 mb-2; }
+.tiptap h1 {
+  @apply text-3xl font-bold leading-tight;
+}
+
+.tiptap h2 {
+  @apply text-2xl font-semibold;
+}
+
+.tiptap h3 {
+  @apply text-xl font-semibold;
+}
+
+.tiptap h4 {
+  @apply text-lg font-medium;
+}
+
+.tiptap h1, .tiptap h2, .tiptap h3, .tiptap h4 {
+  @apply mt-4 mb-2;
+}
 
 /*Tiptap 1,2,3, - 처리*/
-.tiptap ol { list-style: decimal; margin-left: 1.25rem; }
-.tiptap ul { list-style: disc; margin-left: 1.25rem; }
-.tiptap li { list-style: inherit; }
-.tiptap ol > li::marker { font-variant-numeric: tabular-nums; }
+.tiptap ol {
+  list-style: decimal;
+  margin-left: 1.25rem;
+}
+
+.tiptap ul {
+  list-style: disc;
+  margin-left: 1.25rem;
+}
+
+.tiptap li {
+  list-style: inherit;
+}
+
+.tiptap ol > li::marker {
+  font-variant-numeric: tabular-nums;
+}
+
+/*Tiptap codeblock*/
+.tiptap pre {
+  background: #0b1020;
+  color: #e5e7eb;
+  border-radius: .75rem;
+  padding: .75rem 1rem;
+  overflow: auto
+}
+
+.tiptap pre .hljs {
+  background: transparent
+}
+

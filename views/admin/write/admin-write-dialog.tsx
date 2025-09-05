@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface AdminWriteDialogProps {
   isOpen: boolean;
@@ -11,7 +11,9 @@ const AdminWriteDialog = ({ isOpen, setIsOpen }: AdminWriteDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
-        <div>게시판 설정</div>
+        <DialogHeader>
+          <DialogTitle>게시글 설정</DialogTitle>
+        </DialogHeader>
       </DialogContent>
     </Dialog>
   );

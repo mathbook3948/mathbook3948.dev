@@ -12,11 +12,12 @@ import Image from "@tiptap/extension-image";
 import { AdminWriteSchema, AdminWriteSchemaType } from "@/schemas/admin-write-schema";
 import AdminWriteTitle from "@/views/admin/write/admin-write-title";
 import { Form } from "@/components/ui/form";
-import AdminWriteToolbar from "@/views/admin/write/admin-write-toolbar";
+import AdminWriteToolbar from "@/views/admin/write/toolbar/admin-write-toolbar";
 import { FontSize, TextStyle } from "@tiptap/extension-text-style";
 import AdminWriteSave from "@/views/admin/write/admin-write-save";
 import { useState } from "react";
 import AdminWriteDialog from "@/views/admin/write/admin-write-dialog";
+import { CodeBlock } from "@/components/tiptap/codeblock";
 
 const AdminWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +38,9 @@ const AdminWrite = () => {
    * */
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        codeBlock: false,
+      }),
       Underline,
       Link.configure({ openOnClick: false }),
       Image,
@@ -46,6 +49,7 @@ const AdminWrite = () => {
       }),
       TextStyle,
       FontSize,
+      CodeBlock,
     ],
     content: "",
     immediatelyRender: false,

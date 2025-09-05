@@ -3,6 +3,7 @@
 import { Editor, useEditorState } from "@tiptap/react";
 import { Bold, ImageIcon, Italic, LinkIcon, UnderlineIcon } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
+import AdminWriteToolbarCodeblock from "@/views/admin/write/toolbar/admin-write-toolbar-codeblock";
 
 interface AdminWriteToolbarProps {
   editor: Editor | null;
@@ -21,11 +22,22 @@ const AdminWriteToolbar = ({ editor }: AdminWriteToolbarProps) => {
         isHeading2: editor.isActive("heading", { level: 2 }),
         isHeading3: editor.isActive("heading", { level: 3 }),
         isHeading4: editor.isActive("heading", { level: 4 }),
+        isCodeBlock: editor.isActive("codeBlock"),
       };
     },
   });
 
   if (!editor) return null;
+
+  const handleToggleCodeBlock = (value: string) => {
+    if (editor.isActive("codeBlock")) {
+      // 이미 코드블럭이면 언어만 변경
+      editor.chain().focus().updateAttributes("codeBlock", { language: value }).run();
+    } else {
+      // 코드블럭이 아니면 새로 생성
+      editor.chain().focus().setCodeBlock({ language: value }).run();
+    }
+  };
 
   return (
     <div className="flex flex-wrap gap-2 items-center">
@@ -87,6 +99,7 @@ const AdminWriteToolbar = ({ editor }: AdminWriteToolbarProps) => {
         }}>
         <LinkIcon className="h-4 w-4" />
       </Toggle>
+      <AdminWriteToolbarCodeblock isCodeBlock={editorState?.isCodeBlock ?? false} editor={editor} />
       <Toggle
         size="sm"
         onPressedChange={() => {
