@@ -42,7 +42,7 @@ const AdminWriteToolbarImage = ({ editor }: AdminWriteToolbarImageProps) => {
         onChange={handleFileSelect}
         hidden
       />
-      <Toggle size="sm" onPressedChange={onPressedChange}>
+      <Toggle size="sm" pressed={false} onPressedChange={onPressedChange}>
         <ImageIcon className="h-4 w-4" />
       </Toggle>
     </>
