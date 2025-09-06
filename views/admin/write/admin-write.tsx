@@ -42,7 +42,14 @@ const AdminWrite = () => {
         codeBlock: false,
       }),
       Underline,
-      Link.configure({ openOnClick: false }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        protocols: ["http", "https"],
+        HTMLAttributes: {
+          class: "text-blue-600 hover:text-blue-700 underline underline-offset-2",
+        },
+      }),
       Image,
       Placeholder.configure({
         placeholder: "내용을 입력하세요...",

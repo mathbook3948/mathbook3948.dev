@@ -12,7 +12,7 @@ interface AdminWriteToolbarProps {
   editor: Editor;
 }
 
-const AdminWriteToolbar = ({ isCodeBlock, editor }: AdminWriteToolbarProps) => {
+const AdminWriteToolbarCodeBlock = ({ isCodeBlock, editor }: AdminWriteToolbarProps) => {
   const handleToggleCodeBlock = (value: string) => {
     if (isCodeBlock) {
       editor.chain().focus().updateAttributes("codeBlock", { language: value }).run();
@@ -47,4 +47,4 @@ const AdminWriteToolbar = ({ isCodeBlock, editor }: AdminWriteToolbarProps) => {
   );
 };
 
-export default AdminWriteToolbar;
+export default AdminWriteToolbarCodeBlock;

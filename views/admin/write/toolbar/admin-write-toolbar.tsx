@@ -1,9 +1,10 @@
 "use client";
 
 import { Editor, useEditorState } from "@tiptap/react";
-import { Bold, ImageIcon, Italic, LinkIcon, UnderlineIcon } from "lucide-react";
+import { Bold, ImageIcon, Italic, UnderlineIcon } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import AdminWriteToolbarCodeblock from "@/views/admin/write/toolbar/admin-write-toolbar-codeblock";
+import AdminWriteToolbarLink from "@/views/admin/write/toolbar/admin-write-toolbar-link";
 
 interface AdminWriteToolbarProps {
   editor: Editor | null;
@@ -23,6 +24,7 @@ const AdminWriteToolbar = ({ editor }: AdminWriteToolbarProps) => {
         isHeading3: editor.isActive("heading", { level: 3 }),
         isHeading4: editor.isActive("heading", { level: 4 }),
         isCodeBlock: editor.isActive("codeBlock"),
+        isLink: editor.isActive("link"),
       };
     },
   });
@@ -84,21 +86,7 @@ const AdminWriteToolbar = ({ editor }: AdminWriteToolbarProps) => {
         onPressedChange={() => editor.chain().focus().toggleUnderline().run()}>
         <UnderlineIcon className="h-4 w-4" />
       </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("link")}
-        onPressedChange={() => {
-          if (editor.isActive("link")) {
-            editor.chain().focus().unsetLink().run();
-          } else {
-            const url = window.prompt("링크 URL을 입력하세요");
-            if (url) {
-              editor.chain().focus().setLink({ href: url }).run();
-            }
-          }
-        }}>
-        <LinkIcon className="h-4 w-4" />
-      </Toggle>
+      <AdminWriteToolbarLink isLink={editorState?.isLink ?? false} editor={editor} />
       <AdminWriteToolbarCodeblock isCodeBlock={editorState?.isCodeBlock ?? false} editor={editor} />
       <Toggle
         size="sm"
