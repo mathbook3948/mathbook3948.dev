@@ -8,7 +8,6 @@ import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import { Placeholder } from "@tiptap/extensions";
-import Image from "@tiptap/extension-image";
 import { AdminWriteSchema, AdminWriteSchemaType } from "@/schemas/admin-write-schema";
 import AdminWriteTitle from "@/views/admin/write/admin-write-title";
 import { Form } from "@/components/ui/form";
@@ -18,6 +17,17 @@ import AdminWriteSave from "@/views/admin/write/admin-write-save";
 import { useState } from "react";
 import AdminWriteDialog from "@/views/admin/write/admin-write-dialog";
 import { CodeBlock } from "@/components/tiptap/codeblock";
+import { ImageResize } from "tiptap-extension-resize-image";
+import Image from "@tiptap/extension-image";
+
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (err) => reject(err);
+    reader.readAsDataURL(file); // data:image/png;base64,... 형태
+  });
+}
 
 const AdminWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,13 +60,16 @@ const AdminWrite = () => {
           class: "text-blue-600 hover:text-blue-700 underline underline-offset-2",
         },
       }),
-      Image,
       Placeholder.configure({
         placeholder: "내용을 입력하세요...",
       }),
       TextStyle,
       FontSize,
       CodeBlock,
+      Image.configure({
+        allowBase64: true,
+      }),
+      ImageResize.configure({ allowBase64: true }),
     ],
     content: "",
     immediatelyRender: false,

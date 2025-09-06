@@ -1,10 +1,11 @@
 "use client";
 
 import { Editor, useEditorState } from "@tiptap/react";
-import { Bold, ImageIcon, Italic, UnderlineIcon } from "lucide-react";
+import { Bold, Italic, UnderlineIcon } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import AdminWriteToolbarCodeblock from "@/views/admin/write/toolbar/admin-write-toolbar-codeblock";
 import AdminWriteToolbarLink from "@/views/admin/write/toolbar/admin-write-toolbar-link";
+import AdminWriteToolbarImage from "@/views/admin/write/toolbar/admin-write-toolbar-image";
 
 interface AdminWriteToolbarProps {
   editor: Editor | null;
@@ -88,16 +89,7 @@ const AdminWriteToolbar = ({ editor }: AdminWriteToolbarProps) => {
       </Toggle>
       <AdminWriteToolbarLink isLink={editorState?.isLink ?? false} editor={editor} />
       <AdminWriteToolbarCodeblock isCodeBlock={editorState?.isCodeBlock ?? false} editor={editor} />
-      <Toggle
-        size="sm"
-        onPressedChange={() => {
-          const url = window.prompt("이미지 URL을 입력하세요");
-          if (url) {
-            editor.chain().focus().setImage({ src: url }).run();
-          }
-        }}>
-        <ImageIcon className="h-4 w-4" />
-      </Toggle>
+      <AdminWriteToolbarImage editor={editor} />
     </div>
   );
 };
