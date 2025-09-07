@@ -12,7 +12,7 @@ const registAdminPost = async ({
 }: AdminWriteSchemaType) => {
   await prisma.post.create({
     data: {
-      category_idx: categoryIdx,
+      categoryIdx: categoryIdx,
       title,
       content,
       thumbnail,

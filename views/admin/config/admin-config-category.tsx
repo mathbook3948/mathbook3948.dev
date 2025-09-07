@@ -54,8 +54,8 @@ const AdminConfigCategory = () => {
                 <>
                   {categoryList.map((b, index) => (
                     <Draggable
-                      key={b.category_idx}
-                      draggableId={String(b.category_idx)}
+                      key={b.categoryIdx}
+                      draggableId={String(b.categoryIdx)}
                       index={index}>
                       {(provided, dragSnapshot) => (
                         <li

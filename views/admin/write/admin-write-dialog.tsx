@@ -114,7 +114,7 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
                   variant="outline"
                   className="justify-start items-center w-full truncate cursor-pointer">
                   <ChevronDown />
-                  {categories.find((c) => c.category_idx === categoryIdx)?.name ?? "카테고리 선택"}
+                  {categories.find((c) => c.categoryIdx === categoryIdx)?.name ?? "카테고리 선택"}
                 </Button>
               </PopoverTrigger>
               <PopoverContent align="start" className="p-0 w-[280px]">
@@ -124,8 +124,8 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
                   <CommandList>
                     {categories.map((category) => (
                       <CommandItem
-                        key={`category-${category.category_idx}`}
-                        value={String(category.category_idx)}
+                        key={`category-${category.categoryIdx}`}
+                        value={String(category.categoryIdx)}
                         keywords={[category.name]}
                         onSelect={(val) => {
                           const idx = Number(val);

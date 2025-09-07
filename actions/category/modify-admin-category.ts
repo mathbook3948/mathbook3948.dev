@@ -12,7 +12,7 @@ const modifyAdminCategory = async ({ categoryList }: ModifyAdminCategoryProps) =
   await Promise.all(
     categoryList.map((c) =>
       prisma.category.update({
-        where: { category_idx: c.category_idx },
+        where: { categoryIdx: c.categoryIdx },
         data: {
           sortOrder: c.sortOrder,
           updatedAt: new Date(),

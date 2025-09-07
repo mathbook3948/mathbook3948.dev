@@ -1,5 +1,5 @@
 export interface Category {
-  category_idx: number;
+  categoryIdx: number;
   name: string;
   isPublic: boolean;
   sortOrder: number;
