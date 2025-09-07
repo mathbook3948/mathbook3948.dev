@@ -20,7 +20,23 @@ import { CodeBlock } from "@/components/tiptap/codeblock";
 import { ImageResize } from "tiptap-extension-resize-image";
 import Image from "@tiptap/extension-image";
 
-const AdminWrite = () => {
+interface AdminWriteProps {
+  postIdx: number | null;
+  title: string;
+  content: string;
+  isPublic: boolean;
+  categoryIdx: number;
+  thumbnail: string | null;
+}
+
+const AdminWrite = ({
+  postIdx,
+  title,
+  content,
+  isPublic,
+  categoryIdx,
+  thumbnail,
+}: AdminWriteProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   /**
@@ -29,10 +45,12 @@ const AdminWrite = () => {
   const form = useForm<AdminWriteSchemaType>({
     resolver: zodResolver(AdminWriteSchema),
     defaultValues: {
-      title: "",
-      content: "",
-      isPublic: true,
-      categoryIdx: -1,
+      postIdx: postIdx,
+      title: title,
+      content: content,
+      isPublic: isPublic,
+      categoryIdx: categoryIdx,
+      thumbnail: thumbnail,
     },
   });
 
@@ -64,7 +82,7 @@ const AdminWrite = () => {
       }),
       ImageResize.configure({ allowBase64: true }),
     ],
-    content: "",
+    content: form.getValues("content"),
     immediatelyRender: false,
     editable: true,
     editorProps: {

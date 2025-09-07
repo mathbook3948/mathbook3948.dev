@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const AdminWriteSchema = z.object({
+  postIdx: z.number().optional().nullable(),
   title: z
     .string()
     .min(1, { message: "제목은 비어 있을 수 없습니다." })

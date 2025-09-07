@@ -62,9 +62,13 @@ model Post {
 }
 
 model PostDraft {
-  postDraftIdx Int    @id @default(autoincrement()) @map("post_draft_idx")
-  title        String @db.VarChar()
-  content      String @db.VarChar()
+  postDraftIdx Int     @id @default(autoincrement()) @map("post_draft_idx")
+  categoryIdx  Int     @map("category_idx")
+  title        String  @db.VarChar()
+  content      String  @db.VarChar()
+  thumbnail    String? @db.VarChar()
+
+  isPublic Boolean @default(true) @map("is_public")
 
   createdAt DateTime @default(now()) @map("created_at")
 

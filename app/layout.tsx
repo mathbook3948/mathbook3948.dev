@@ -5,6 +5,7 @@ import { Config } from "@/constants/config-constant";
 import getAppTitle from "@/actions/common/get-app-title";
 import Navbar from "@/views/shared/navbar";
 import localFont from "next/font/local";
+import RootProvider from "@/views/shared/root-provider";
 
 const pretendard = localFont({
   src: [
@@ -35,7 +36,7 @@ const RootLayout = async ({
         <main className="antialiased min-h-screen">
           <div className="w-full lg:max-w-4xl px-4 mx-auto">
             <Navbar appTitle={appTitle} />
-            {children}
+            <RootProvider>{children}</RootProvider>
           </div>
         </main>
       </body>

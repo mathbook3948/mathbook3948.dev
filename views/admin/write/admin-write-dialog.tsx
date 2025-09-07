@@ -6,7 +6,7 @@ import { AdminWriteSchemaType } from "@/schemas/admin-write-schema";
 import Image from "next/image";
 import { ChevronDown, Globe, GlobeLock, ImagePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Category } from "@/types/category-interface";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -14,6 +14,7 @@ import { Command, CommandEmpty, CommandInput, CommandItem } from "@/components/u
 import { CommandList } from "cmdk";
 import getAdminCategoryList from "@/actions/category/get-admin-category-list";
 import registAdminPost from "@/actions/post/regist-admin-post";
+import modifyAdminPost from "@/actions/post/modify-admin-post";
 
 interface AdminWriteDialogProps {
   isOpen: boolean;
@@ -29,6 +30,12 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
   const thumbnail = form.watch("thumbnail") || undefined;
   const isPublic = form.watch("isPublic");
   const categoryIdx = form.watch("categoryIdx");
+
+  useEffect(() => {
+    getAdminCategoryList().then((c) => {
+      setCategories(c);
+    });
+  }, []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -56,7 +63,13 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
   };
 
   const handleSave = async () => {
-    registAdminPost(form.getValues());
+    const value = form.getValues();
+
+    if (value.postIdx) {
+      modifyAdminPost(value);
+    } else {
+      registAdminPost(value);
+    }
   };
 
   return (
