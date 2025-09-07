@@ -3,9 +3,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminConfigCategory from "@/views/admin/config/admin-config-category";
 
-const AdminConfig = () => {
+interface AdminConfigProps {
+  tab: string;
+}
+
+const AdminConfig = ({ tab }: AdminConfigProps) => {
   return (
-    <Tabs defaultValue="category" className="w-full">
+    <Tabs value={tab} className="w-full">
       <div className="flex items-center justify-between">
         <TabsList>
           <TabsTrigger value="category">카테고리</TabsTrigger>
