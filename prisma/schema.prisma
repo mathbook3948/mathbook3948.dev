@@ -72,7 +72,7 @@ model PostDraft {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  @@map("t_port_draft")
+  @@map("t_post_draft")
 }
 
 model Config {

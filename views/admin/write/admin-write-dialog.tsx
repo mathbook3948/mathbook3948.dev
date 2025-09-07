@@ -15,6 +15,10 @@ import { CommandList } from "cmdk";
 import getAdminCategoryList from "@/actions/category/get-admin-category-list";
 import registAdminPost from "@/actions/post/regist-admin-post";
 import modifyAdminPost from "@/actions/post/modify-admin-post";
+import registAdminPostDraft from "@/actions/post/regist-admin-post-draft";
+import { useSearchParams } from "next/navigation";
+import modifyAdminPostDraft from "@/actions/post/modify-admin-post-draft";
+import deleteAdminPostDraftAndRegistPost from "@/actions/post/delete-admin-post-draft-and-regist-post";
 
 interface AdminWriteDialogProps {
   isOpen: boolean;
@@ -25,6 +29,7 @@ interface AdminWriteDialogProps {
 const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const params = useSearchParams();
 
   const fileRef = useRef<HTMLInputElement>(null);
   const thumbnail = form.watch("thumbnail") || undefined;
@@ -64,11 +69,28 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
 
   const handleSave = async () => {
     const value = form.getValues();
+    const draftIdx = params.get("draft");
+
+    if (draftIdx) {
+      deleteAdminPostDraftAndRegistPost({ ...value, postDraftIdx: Number(draftIdx) });
+    }
 
     if (value.postIdx) {
       modifyAdminPost(value);
     } else {
       registAdminPost(value);
+    }
+  };
+
+  const handleDraftSave = async () => {
+    const value = form.getValues();
+    const draftIdx = params.get("draft");
+
+    if (draftIdx) {
+      console.log("value: ", value);
+      modifyAdminPostDraft({ ...value, postDraftIdx: Number(draftIdx) });
+    } else {
+      registAdminPostDraft(value);
     }
   };
 
@@ -156,7 +178,7 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
               </PopoverContent>
             </Popover>
             <div className="flex-1 flex flex-row justify-end gap-2">
-              <Button variant="secondary" className="cursor-pointer">
+              <Button variant="secondary" className="cursor-pointer" onClick={handleDraftSave}>
                 임시저장
               </Button>
               <Button className="cursor-pointer" onClick={handleSave}>

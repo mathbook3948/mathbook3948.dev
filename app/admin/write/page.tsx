@@ -28,7 +28,7 @@ const AdminWritePage = async ({ searchParams }: AdminWritePageProps) => {
       title: res?.title ?? "",
       content: res?.content ?? "",
       isPublic: res?.isPublic ?? true,
-      categoryIdx: -1,
+      categoryIdx: res?.categoryIdx ?? -1,
       thumbnail: res?.thumbnail,
     };
   }
