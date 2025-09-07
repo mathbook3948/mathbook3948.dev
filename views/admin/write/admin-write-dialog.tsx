@@ -16,7 +16,7 @@ import getAdminCategoryList from "@/actions/category/get-admin-category-list";
 import registAdminPost from "@/actions/post/regist-admin-post";
 import modifyAdminPost from "@/actions/post/modify-admin-post";
 import registAdminPostDraft from "@/actions/post/regist-admin-post-draft";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import modifyAdminPostDraft from "@/actions/post/modify-admin-post-draft";
 import deleteAdminPostDraftAndRegistPost from "@/actions/post/delete-admin-post-draft-and-regist-post";
 import { toast } from "sonner";
@@ -31,6 +31,7 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
   const [categories, setCategories] = useState<Category[]>([]);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const params = useSearchParams();
+  const router = useRouter();
 
   const fileRef = useRef<HTMLInputElement>(null);
   const thumbnail = form.watch("thumbnail") || undefined;
@@ -81,14 +82,18 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
     }
 
     if (draftIdx) {
-      deleteAdminPostDraftAndRegistPost({ ...value, postDraftIdx: Number(draftIdx) });
+      deleteAdminPostDraftAndRegistPost({ ...value, postDraftIdx: Number(draftIdx) }).then(() => {
+        toast.success("저장에 성공했습니다.");
+        router.push("/admin/config?tab=post");
+      });
     }
 
-    if (value.postIdx) {
-      modifyAdminPost(value);
-    } else {
-      registAdminPost(value);
-    }
+    const fn = value.postIdx ? modifyAdminPost : registAdminPost;
+
+    fn(value).then(() => {
+      toast.success("저장에 성공했습니다.");
+      router.push("/admin/config?tab=post");
+    });
   };
 
   /**

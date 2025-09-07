@@ -2,10 +2,14 @@
 
 import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import type { CategoryConfig } from "@/types/config-interface";
+import { PostWithCategory } from "@/types/post-interface";
+import { Pagination } from "@/types/pagination-interface";
 
 interface AdminConfigContextProps {
   categoryList: CategoryConfig[];
   setCategoryList: Dispatch<SetStateAction<CategoryConfig[]>>;
+  postList: PostWithCategory[];
+  pagination?: Pagination;
 }
 
 const AdminConfigContext = createContext<AdminConfigContextProps | undefined>(undefined);
@@ -20,6 +24,8 @@ export function useAdminConfig() {
 
 interface AdminConfigProviderProps {
   categoryList: CategoryConfig[];
+  postList: PostWithCategory[];
+  pagination?: Pagination;
 }
 
 export function AdminConfigProvider({
@@ -30,16 +36,18 @@ export function AdminConfigProvider({
   value: AdminConfigProviderProps;
 }) {
   const [categoryList, setCategoryList] = useState<CategoryConfig[]>(value.categoryList);
-  
+
   useEffect(() => {
     setCategoryList(value.categoryList);
   }, [value.categoryList]);
-  
+
   return (
     <AdminConfigContext.Provider
       value={{
         categoryList,
         setCategoryList,
+        postList: value.postList,
+        pagination: value.pagination,
       }}>
       {children}
     </AdminConfigContext.Provider>
