@@ -7,6 +7,7 @@ import Navbar from "@/views/shared/navbar";
 import localFont from "next/font/local";
 import RootProvider from "@/views/shared/root-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { cookies } from "next/headers";
 
 const pretendard = localFont({
   src: [
@@ -31,13 +32,18 @@ const RootLayout = async ({
 }>) => {
   const appTitle = await getAppTitle();
 
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("access_token")?.value;
+
   return (
     <html lang="ko">
       <body className={pretendard.className}>
         <main className="antialiased min-h-screen">
           <div className="w-full lg:max-w-4xl px-4 mx-auto">
-            <Navbar appTitle={appTitle} />
-            <RootProvider>{children}</RootProvider>
+            <RootProvider accessToken={accessToken}>
+              <Navbar appTitle={appTitle} />
+              {children}
+            </RootProvider>
             <Toaster position="top-center" />
           </div>
         </main>
