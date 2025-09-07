@@ -35,6 +35,7 @@ const initAdmin = async () => {
 };
 
 const initConfig = async () => {
+  //=======================================================================Title
   const appTitle = await prisma.config.findFirst({
     where: {
       key: Config.APP_TITLE,
@@ -49,6 +50,8 @@ const initConfig = async () => {
       },
     });
   }
+
+  //=======================================================================Favicon
 
   const appFavicon = await prisma.config.findFirst({
     where: {
@@ -65,4 +68,27 @@ const initConfig = async () => {
       },
     });
   }
+
+  //=======================================================================JwtSecret
+  const jwtSecret = await prisma.config.findFirst({
+    where: {
+      key: Config.JWT_SECRET,
+    },
+  });
+
+  if (!jwtSecret) {
+    const secret = generateSecret(64);
+    await prisma.config.create({
+      data: {
+        key: Config.JWT_SECRET,
+        value: secret,
+      },
+    });
+  }
 };
+
+function generateSecret(length = 64): string {
+  const bytes = new Uint8Array(length);
+  crypto.getRandomValues(bytes);
+  return Buffer.from(bytes).toString("base64url");
+}

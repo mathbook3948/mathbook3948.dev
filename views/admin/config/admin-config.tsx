@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminConfigCategory from "@/views/admin/config/admin-config-category";
 import { useRouter } from "next/navigation";
 import AdminConfigPost from "@/views/admin/config/admin-config-post";
+import LoadingPlaceholder from "@/views/shared/loading";
 
 interface AdminConfigProps {
   tab: string;
@@ -27,10 +28,12 @@ const AdminConfig = ({ tab }: AdminConfigProps) => {
       </div>
 
       <TabsContent value="category">
-        <AdminConfigCategory />
+        {tab === "category" ? <AdminConfigCategory /> : <LoadingPlaceholder />}
       </TabsContent>
 
-      <TabsContent value="post">{tab === "post" && <AdminConfigPost />}</TabsContent>
+      <TabsContent value="post">
+        {tab === "post" ? <AdminConfigPost /> : <LoadingPlaceholder />}
+      </TabsContent>
 
       <TabsContent value="advanced">
         <div className="text-sm text-muted-foreground">준비 중</div>
