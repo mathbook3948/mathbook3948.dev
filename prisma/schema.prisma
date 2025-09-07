@@ -43,11 +43,14 @@ model Category {
 }
 
 model Post {
-  post_idx     Int    @id @default(autoincrement())
+  post_idx     Int     @id @default(autoincrement())
   category_idx Int
-  title        String @db.VarChar()
-  content      String @db.VarChar()
-  views        Int    @default(0)
+  title        String  @db.VarChar()
+  content      String  @db.VarChar()
+  views        Int     @default(0)
+  thumbnail    String? @db.VarChar()
+
+  isPublic Boolean @default(true) @map("is_public")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")

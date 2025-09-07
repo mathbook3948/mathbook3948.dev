@@ -13,6 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Command, CommandEmpty, CommandInput, CommandItem } from "@/components/ui/command";
 import { CommandList } from "cmdk";
 import getAdminCategoryList from "@/actions/category/get-admin-category-list";
+import registAdminPost from "@/actions/post/regist-admin-post";
 
 interface AdminWriteDialogProps {
   isOpen: boolean;
@@ -54,6 +55,10 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
     setIsCategoryOpen(value);
   };
 
+  const handleSave = async () => {
+    registAdminPost(form.getValues());
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
@@ -72,7 +77,7 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
                 className="aspect-video rounded-md object-cover"
               />
             ) : (
-              <div className="aspect-video bg-muted/20 rounded-md flex items-center justify-center">
+              <div className="aspect-video bg-muted/20 rounded-md flex items-center justify-center cursor-pointer">
                 <ImagePlus />
               </div>
             )}
@@ -138,8 +143,12 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
               </PopoverContent>
             </Popover>
             <div className="flex-1 flex flex-row justify-end gap-2">
-              <Button variant="secondary">임시저장</Button>
-              <Button>저장</Button>
+              <Button variant="secondary" className="cursor-pointer">
+                임시저장
+              </Button>
+              <Button className="cursor-pointer" onClick={handleSave}>
+                저장
+              </Button>
             </div>
           </div>
         </div>
