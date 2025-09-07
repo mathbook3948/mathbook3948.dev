@@ -20,15 +20,6 @@ import { CodeBlock } from "@/components/tiptap/codeblock";
 import { ImageResize } from "tiptap-extension-resize-image";
 import Image from "@tiptap/extension-image";
 
-function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (err) => reject(err);
-    reader.readAsDataURL(file); // data:image/png;base64,... 형태
-  });
-}
-
 const AdminWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,6 +31,8 @@ const AdminWrite = () => {
     defaultValues: {
       title: "",
       content: "",
+      isPublic: true,
+      categoryIdx: -1,
     },
   });
 
@@ -106,7 +99,7 @@ const AdminWrite = () => {
           <AdminWriteContent editor={editor} />
         </div>
         <AdminWriteSave />
-        <AdminWriteDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+        <AdminWriteDialog isOpen={isOpen} setIsOpen={setIsOpen} form={form} />
       </form>
     </Form>
   );

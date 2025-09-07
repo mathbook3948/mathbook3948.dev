@@ -6,6 +6,9 @@ export const AdminWriteSchema = z.object({
     .min(1, { message: "제목은 비어 있을 수 없습니다." })
     .max(200, { message: "제목은 200자를 초과할 수 없습니다." }),
   content: z.string(),
+  thumbnail: z.string().optional().nullable(),
+  isPublic: z.boolean(),
+  categoryIdx: z.number(),
 });
 
 export type AdminWriteSchemaType = z.infer<typeof AdminWriteSchema>;
