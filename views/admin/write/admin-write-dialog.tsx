@@ -19,6 +19,7 @@ import registAdminPostDraft from "@/actions/post/regist-admin-post-draft";
 import { useSearchParams } from "next/navigation";
 import modifyAdminPostDraft from "@/actions/post/modify-admin-post-draft";
 import deleteAdminPostDraftAndRegistPost from "@/actions/post/delete-admin-post-draft-and-regist-post";
+import { toast } from "sonner";
 
 interface AdminWriteDialogProps {
   isOpen: boolean;
@@ -67,9 +68,17 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
     setIsCategoryOpen(value);
   };
 
+  /**
+   * 저장 이벤트
+   * */
   const handleSave = async () => {
     const value = form.getValues();
     const draftIdx = params.get("draft");
+
+    //categoryIdx 검사
+    if (value.categoryIdx === -1) {
+      toast.info("카테고리를 설정해주세요.");
+    }
 
     if (draftIdx) {
       deleteAdminPostDraftAndRegistPost({ ...value, postDraftIdx: Number(draftIdx) });
@@ -82,12 +91,14 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
     }
   };
 
+  /**
+   * 임시저장 이벤트
+   * */
   const handleDraftSave = async () => {
     const value = form.getValues();
     const draftIdx = params.get("draft");
 
     if (draftIdx) {
-      console.log("value: ", value);
       modifyAdminPostDraft({ ...value, postDraftIdx: Number(draftIdx) });
     } else {
       registAdminPostDraft(value);
