@@ -77,7 +77,12 @@ const initConfig = async () => {
   });
 
   if (!jwtSecret) {
-    const secret = generateSecret(64);
+    const secret = process.env.JWT_SECRET;
+
+    if (!secret) {
+      throw new Error("JWT_SECRET이 지정되지 않았습니다.");
+    }
+
     await prisma.config.create({
       data: {
         key: Config.JWT_SECRET,
@@ -86,9 +91,3 @@ const initConfig = async () => {
     });
   }
 };
-
-function generateSecret(length = 64): string {
-  const bytes = new Uint8Array(length);
-  crypto.getRandomValues(bytes);
-  return Buffer.from(bytes).toString("base64url");
-}
