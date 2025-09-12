@@ -102,7 +102,7 @@ const AdminConfigPost = () => {
       header: "",
       cell: ({ row }) => (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger className="cursor-pointer" asChild>
             <EllipsisVertical />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

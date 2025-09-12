@@ -21,9 +21,15 @@ const AdminConfig = ({ tab }: AdminConfigProps) => {
     <Tabs value={tab} className="w-full" onValueChange={handleTabChange}>
       <div className="flex items-center justify-between">
         <TabsList>
-          <TabsTrigger value="category">카테고리</TabsTrigger>
-          <TabsTrigger value="post">게시글</TabsTrigger>
-          <TabsTrigger value="advanced">고급</TabsTrigger>
+          <TabsTrigger value="category" className="cursor-pointer">
+            카테고리
+          </TabsTrigger>
+          <TabsTrigger value="post" className="cursor-pointer">
+            게시글
+          </TabsTrigger>
+          <TabsTrigger value="advanced" className="cursor-pointer">
+            고급
+          </TabsTrigger>
         </TabsList>
       </div>
 
