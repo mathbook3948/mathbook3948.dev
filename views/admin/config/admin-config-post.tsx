@@ -17,6 +17,7 @@ import AdminConfigPostPagination from "@/views/admin/config/admin-config-post-pa
 import { useRouter } from "next/navigation";
 import deleteAdminPost from "@/actions/post/delete-admin-post";
 import { toast } from "sonner";
+import { format } from "date-fns";
 
 const AdminConfigPost = () => {
   const { postList, pagination } = useAdminConfig();
@@ -55,7 +56,9 @@ const AdminConfigPost = () => {
       header: "최종저장일",
       cell: ({ row }) => (
         <span>
-          {row.original.updatedAt?.toLocaleString() ?? row.original.createdAt?.toLocaleString()}
+          {row.original.updatedAt
+            ? format(new Date(row.original.updatedAt), "yyyy-MM-dd HH:mm:ss")
+            : format(new Date(row.original.createdAt), "yyyy-MM-dd HH:mm:ss")}
         </span>
       ),
     },
@@ -125,7 +128,7 @@ const AdminConfigPost = () => {
   ];
 
   return (
-    <div className=" flex flex-col gap-4 py-4">
+    <div className=" flex flex-col gap-4 py-4" suppressHydrationWarning>
       <DataTable columns={columns} data={postList} />
       <AdminConfigPostPagination pagination={pagination!} />
     </div>

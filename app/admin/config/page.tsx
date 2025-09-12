@@ -4,8 +4,10 @@ import { CategoryConfig } from "@/types/config-interface";
 import { AdminConfigProvider } from "@/views/admin/config/admin-config-provider";
 import { PostWithCategory } from "@/types/post-interface";
 import getAdminPosts from "@/actions/post/get-admin-posts";
-import { Pagination } from "@/types/pagination-interface";
+import { GridData, Pagination } from "@/types/pagination-interface";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface AdminConfigPageProps {
   searchParams: Promise<{
@@ -23,23 +25,47 @@ const AdminConfigPage = async ({ searchParams }: AdminConfigPageProps) => {
     redirect("/admin/config?tab=category");
   }
 
-  let categoryList: CategoryConfig[] = [];
-  let postList: PostWithCategory[] = [];
-  let pagination: Pagination | undefined = undefined;
+  let categoryListPromise: Promise<CategoryConfig[]> | undefined = undefined;
+  let postPromise: Promise<GridData<PostWithCategory>> | undefined = undefined;
 
   if (tab === "category") {
-    categoryList = await getAdminCategoryList();
+    categoryListPromise = getAdminCategoryList();
   } else if (tab === "post") {
-    const res = await getAdminPosts({
+    postPromise = getAdminPosts({
       categoryIdx: Number(category),
       page: Number(page ?? 1),
       perPage: Number(perPage ?? 10),
     });
-
-    postList = res.items;
-    pagination = res.pagination;
   }
 
+  return (
+    <Suspense fallback={<AdminConfigSuspense tab={tab} />}>
+      <AdminConfigContent
+        tab={tab}
+        categoryListPromise={categoryListPromise}
+        postPromise={postPromise}
+      />
+    </Suspense>
+  );
+};
+
+interface AdminConfigContentProps {
+  tab: string;
+  categoryListPromise?: Promise<CategoryConfig[]>;
+  postPromise?: Promise<GridData<PostWithCategory>>;
+}
+
+const AdminConfigContent = async ({
+  tab,
+  categoryListPromise,
+  postPromise,
+}: AdminConfigContentProps) => {
+  const categoryList: CategoryConfig[] = (await categoryListPromise) ?? [];
+
+  const _post = await postPromise;
+
+  const postList: PostWithCategory[] = _post?.items ?? [];
+  const pagination: Pagination | undefined = _post?.pagination ?? undefined;
   return (
     <AdminConfigProvider
       value={{
@@ -49,6 +75,56 @@ const AdminConfigPage = async ({ searchParams }: AdminConfigPageProps) => {
       }}>
       <AdminConfig tab={tab} />
     </AdminConfigProvider>
+  );
+};
+
+interface AdminConfigSuspenseProps {
+  tab: string;
+}
+
+const AdminConfigSuspense = ({ tab }: AdminConfigSuspenseProps) => {
+  let render = null;
+
+  switch (tab) {
+    case "category": {
+      render = (
+        <>
+          <Skeleton className="h-9 w-40" />
+          <div className="flex flex-row items-center justify-end mb-2 gap-2">
+            <Skeleton className="h-9 w-18 px-4 py-2 has-[>svg]:px-3" />
+            <Skeleton className="h-9 w-14 px-4 py-2 has-[>svg]:px-3" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-12 w-full" />
+            <Skeleton className="h-12 w-full" />
+            <Skeleton className="h-12 w-full" />
+          </div>
+        </>
+      );
+
+      break;
+    }
+    case "post":
+      render = (
+        <>
+          <Skeleton className="h-[24rem] w-full" />
+          <div className="flex flex-row gap-2 justify-center">
+            <Skeleton className="h-9 w-18 px-4 py-2 has-[>svg]:px-3" />
+            <Skeleton className="h-9 w-9" />
+            <Skeleton className="h-9 w-18 px-4 py-2 has-[>svg]:px-3" />
+          </div>
+        </>
+      );
+
+      break;
+  }
+
+  return (
+    <div className="flex flex-col gap-2">
+      <Skeleton className="h-9 w-40" />
+      {render}
+    </div>
   );
 };
 

@@ -34,7 +34,13 @@ function buildPages(current: number, total: number) {
 }
 
 const AdminConfigPostPagination = ({ pagination }: AdminConfigPostPaginationProps) => {
-  const { page, totalPages, hasPrev, hasNext, perPage } = pagination;
+  const { page, totalPages, hasPrev, hasNext, perPage } = pagination ?? {
+    page: 0,
+    totalPages: 0,
+    hasPrev: false,
+    hasNext: false,
+    perPage: 10,
+  };
 
   const pathname = usePathname();
   const router = useRouter();

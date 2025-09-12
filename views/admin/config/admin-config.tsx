@@ -28,11 +28,11 @@ const AdminConfig = ({ tab }: AdminConfigProps) => {
       </div>
 
       <TabsContent value="category">
-        {tab === "category" ? <AdminConfigCategory /> : <LoadingPlaceholder />}
+        <AdminConfigCategory />
       </TabsContent>
 
       <TabsContent value="post">
-        {tab === "post" ? <AdminConfigPost /> : <LoadingPlaceholder />}
+        <AdminConfigPost />
       </TabsContent>
 
       <TabsContent value="advanced">

@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { getGridData } from "@/utils/get-grid-data";
 import { Prisma } from "@prisma/client";
-import { Post, PostWithCategory } from "@/types/post-interface";
+import { PostWithCategory } from "@/types/post-interface";
 import PostOrderByWithRelationInput = Prisma.PostOrderByWithRelationInput;
 
 interface GetAdminPostsProps {
