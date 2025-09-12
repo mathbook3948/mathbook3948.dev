@@ -107,7 +107,8 @@ const AdminConfigPost = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 router.push(`/admin/write?post=${row.original.postIdx}`);
               }}>
               수정
@@ -127,9 +128,13 @@ const AdminConfigPost = () => {
     },
   ];
 
+  const handleRowClick = (row: PostWithCategory) => {
+    router.push(`/admin/read?post=${row.postIdx}`);
+  };
+
   return (
     <div className=" flex flex-col gap-4 py-4" suppressHydrationWarning>
-      <DataTable columns={columns} data={postList} />
+      <DataTable columns={columns} data={postList} onRowClick={handleRowClick} />
       <AdminConfigPostPagination pagination={pagination!} />
     </div>
   );

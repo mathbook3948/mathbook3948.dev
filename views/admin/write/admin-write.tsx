@@ -77,10 +77,7 @@ const AdminWrite = ({
       TextStyle,
       FontSize,
       CodeBlock,
-      Image.configure({
-        allowBase64: true,
-      }),
-      ImageResize.configure({ allowBase64: true }),
+      ImageResize.configure({ allowBase64: true, inline: true }),
     ],
     content: form.getValues("content"),
     immediatelyRender: false,
