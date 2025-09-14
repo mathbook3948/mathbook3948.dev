@@ -18,7 +18,7 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import AdminConfigDraftPagination from "@/views/admin/config/draft/admin-config-draft-pagination";
 import { PostDraftWithCategory } from "@/types/post-draft-interface";
-import deleteAdminPostDraft from "@/actions/post/delete-admin-post-draft";
+import deleteAdminPostDraft from "@/actions/admin/post/delete-admin-post-draft";
 
 const AdminConfigDraft = () => {
   const { draftList, pagination } = useAdminConfig();

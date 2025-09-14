@@ -1,6 +1,6 @@
 import AdminWrite from "@/views/admin/write/admin-write";
-import getAdminPost from "@/actions/post/get-admin-post";
-import getAdminPostDraft from "@/actions/post/get-admin-post-draft";
+import getAdminPost from "@/actions/admin/post/get-admin-post";
+import getAdminPostDraft from "@/actions/admin/post/get-admin-post-draft";
 
 interface AdminWritePageProps {
   searchParams: Promise<{

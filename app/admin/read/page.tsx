@@ -1,4 +1,4 @@
-import getAdminPost from "@/actions/post/get-admin-post";
+import getAdminPost from "@/actions/admin/post/get-admin-post";
 import { redirect } from "next/navigation";
 import AdminRead from "@/views/admin/read/admin-read";
 

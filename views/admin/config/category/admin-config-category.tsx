@@ -7,7 +7,7 @@ import { CategoryConfig } from "@/types/config-interface";
 import { cn } from "@/lib/utils";
 import AdminConfigCategoryDialog from "@/views/admin/config/category/admin-config-category-dialog";
 import { Button } from "@/components/ui/button";
-import modifyAdminCategory from "@/actions/category/modify-admin-category";
+import modifyAdminCategory from "@/actions/admin/category/modify-admin-category";
 import { useRouter } from "next/navigation";
 
 function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {

@@ -1,15 +1,15 @@
 import AdminConfig from "@/views/admin/config/admin-config";
-import getAdminCategoryList from "@/actions/category/get-admin-category-list";
+import getAdminCategoryList from "@/actions/admin/category/get-admin-category-list";
 import { CategoryConfig } from "@/types/config-interface";
 import { AdminConfigProvider } from "@/views/admin/config/admin-config-provider";
 import { PostWithCategory } from "@/types/post-interface";
-import getAdminPosts from "@/actions/post/get-admin-posts";
+import getAdminPosts from "@/actions/admin/post/get-admin-posts";
 import { GridData, Pagination } from "@/types/pagination-interface";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PostDraftWithCategory } from "@/types/post-draft-interface";
-import getAdminPostDrafts from "@/actions/post/get-admin-post-drafts";
+import getAdminPostDrafts from "@/actions/admin/post/get-admin-post-drafts";
 
 interface AdminConfigPageProps {
   searchParams: Promise<{

@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import AdminConfigPostPagination from "@/views/admin/config/post/admin-config-post-pagination";
 import { useRouter } from "next/navigation";
-import deleteAdminPost from "@/actions/post/delete-admin-post";
+import deleteAdminPost from "@/actions/admin/post/delete-admin-post";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";

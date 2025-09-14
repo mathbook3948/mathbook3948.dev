@@ -1,4 +1,4 @@
-import getAdminCategoryList from "@/actions/category/get-admin-category-list";
+import getAdminCategoryList from "@/actions/admin/category/get-admin-category-list";
 
 const TestPage = async () => {
   const res = await getAdminCategoryList();

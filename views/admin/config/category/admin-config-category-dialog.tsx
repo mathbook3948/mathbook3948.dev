@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import registAdminCategory from "@/actions/category/regist-admin-category";
+import registAdminCategory from "@/actions/admin/category/regist-admin-category";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
