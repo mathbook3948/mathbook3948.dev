@@ -8,6 +8,8 @@ import { GridData, Pagination } from "@/types/pagination-interface";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PostDraftWithCategory } from "@/types/post-draft-interface";
+import getAdminPostDrafts from "@/actions/post/get-admin-post-drafts";
 
 interface AdminConfigPageProps {
   searchParams: Promise<{
@@ -27,11 +29,18 @@ const AdminConfigPage = async ({ searchParams }: AdminConfigPageProps) => {
 
   let categoryListPromise: Promise<CategoryConfig[]> | undefined = undefined;
   let postPromise: Promise<GridData<PostWithCategory>> | undefined = undefined;
+  let postDraftPromise: Promise<GridData<PostDraftWithCategory>> | undefined = undefined;
 
   if (tab === "category") {
     categoryListPromise = getAdminCategoryList();
   } else if (tab === "post") {
     postPromise = getAdminPosts({
+      categoryIdx: Number(category),
+      page: Number(page ?? 1),
+      perPage: Number(perPage ?? 10),
+    });
+  } else if (tab === "draft") {
+    postDraftPromise = getAdminPostDrafts({
       categoryIdx: Number(category),
       page: Number(page ?? 1),
       perPage: Number(perPage ?? 10),
@@ -44,6 +53,7 @@ const AdminConfigPage = async ({ searchParams }: AdminConfigPageProps) => {
         tab={tab}
         categoryListPromise={categoryListPromise}
         postPromise={postPromise}
+        postDraftPromise={postDraftPromise}
       />
     </Suspense>
   );
@@ -53,24 +63,35 @@ interface AdminConfigContentProps {
   tab: string;
   categoryListPromise?: Promise<CategoryConfig[]>;
   postPromise?: Promise<GridData<PostWithCategory>>;
+  postDraftPromise?: Promise<GridData<PostDraftWithCategory>>;
 }
 
 const AdminConfigContent = async ({
   tab,
   categoryListPromise,
   postPromise,
+  postDraftPromise,
 }: AdminConfigContentProps) => {
+  let pagination: Pagination | undefined = undefined;
+
   const categoryList: CategoryConfig[] = (await categoryListPromise) ?? [];
 
   const _post = await postPromise;
 
   const postList: PostWithCategory[] = _post?.items ?? [];
-  const pagination: Pagination | undefined = _post?.pagination ?? undefined;
+  if (tab == "post") pagination = _post?.pagination ?? undefined;
+
+  const _postDraft = await postDraftPromise;
+
+  const draftList: PostDraftWithCategory[] = _postDraft?.items ?? [];
+  if (tab == "draft") pagination = _postDraft?.pagination ?? undefined;
+
   return (
     <AdminConfigProvider
       value={{
         categoryList,
         postList,
+        draftList,
         pagination,
       }}>
       <AdminConfig tab={tab} />

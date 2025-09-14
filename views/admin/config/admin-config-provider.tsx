@@ -4,11 +4,13 @@ import { createContext, Dispatch, SetStateAction, useContext, useEffect, useStat
 import type { CategoryConfig } from "@/types/config-interface";
 import { PostWithCategory } from "@/types/post-interface";
 import { Pagination } from "@/types/pagination-interface";
+import { PostDraftWithCategory } from "@/types/post-draft-interface";
 
 interface AdminConfigContextProps {
   categoryList: CategoryConfig[];
   setCategoryList: Dispatch<SetStateAction<CategoryConfig[]>>;
   postList: PostWithCategory[];
+  draftList: PostDraftWithCategory[];
   pagination?: Pagination;
 }
 
@@ -25,6 +27,7 @@ export function useAdminConfig() {
 interface AdminConfigProviderProps {
   categoryList: CategoryConfig[];
   postList: PostWithCategory[];
+  draftList: PostDraftWithCategory[];
   pagination?: Pagination;
 }
 
@@ -47,6 +50,7 @@ export function AdminConfigProvider({
         categoryList,
         setCategoryList,
         postList: value.postList,
+        draftList: value.draftList,
         pagination: value.pagination,
       }}>
       {children}

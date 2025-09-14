@@ -37,7 +37,8 @@ model Category {
   updatedAt DateTime? @map("updated_at")
   isDeleted Boolean   @default(false) @map("is_deleted")
 
-  posts Post[]
+  posts     Post[]
+  PostDraft PostDraft[]
 
   @@map("t_category")
 }
@@ -71,6 +72,8 @@ model PostDraft {
   isPublic Boolean @default(true) @map("is_public")
 
   createdAt DateTime @default(now()) @map("created_at")
+
+  category Category? @relation(fields: [categoryIdx], references: [categoryIdx])
 
   @@map("t_post_draft")
 }

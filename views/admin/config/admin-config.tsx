@@ -1,10 +1,10 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import AdminConfigCategory from "@/views/admin/config/admin-config-category";
+import AdminConfigCategory from "@/views/admin/config/category/admin-config-category";
 import { useRouter } from "next/navigation";
-import AdminConfigPost from "@/views/admin/config/admin-config-post";
-import LoadingPlaceholder from "@/views/shared/loading";
+import AdminConfigPost from "@/views/admin/config/post/admin-config-post";
+import AdminConfigDraft from "@/views/admin/config/draft/admin-config-draft";
 
 interface AdminConfigProps {
   tab: string;
@@ -27,6 +27,9 @@ const AdminConfig = ({ tab }: AdminConfigProps) => {
           <TabsTrigger value="post" className="cursor-pointer">
             게시글
           </TabsTrigger>
+          <TabsTrigger value="draft" className="cursor-pointer">
+            임시저장
+          </TabsTrigger>
           <TabsTrigger value="advanced" className="cursor-pointer">
             고급
           </TabsTrigger>
@@ -39,6 +42,10 @@ const AdminConfig = ({ tab }: AdminConfigProps) => {
 
       <TabsContent value="post">
         <AdminConfigPost />
+      </TabsContent>
+
+      <TabsContent value="draft">
+        <AdminConfigDraft />
       </TabsContent>
 
       <TabsContent value="advanced">
