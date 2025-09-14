@@ -6,7 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { PostWithCategory } from "@/types/post-interface";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
-import { EllipsisVertical, ImagePlus } from "lucide-react";
+import { EllipsisVertical, ImageOff, ImagePlus } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -89,8 +89,8 @@ const AdminConfigPost = () => {
                 className="aspect-video rounded-md object-cover"
               />
             ) : (
-              <div className="aspect-video bg-muted/20 rounded-md flex items-center justify-center cursor-pointer">
-                <ImagePlus />
+              <div className="w-[200px] aspect-video bg-muted rounded-md flex items-center justify-center cursor-pointer">
+                <ImageOff />
               </div>
             )}
           </div>
