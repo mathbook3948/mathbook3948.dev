@@ -129,6 +129,27 @@ const AdminConfigSuspense = ({ tab }: AdminConfigSuspenseProps) => {
     case "post":
       render = (
         <>
+          <div className="flex flex-row justify-between items-center gap-4 mt-4">
+            <div></div>
+            <Skeleton className="h-9 w-24 px-4 py-2 has-[>svg]:px-3" />
+          </div>
+          <Skeleton className="h-[24rem] w-full" />
+          <div className="flex flex-row gap-2 justify-center">
+            <Skeleton className="h-9 w-18 px-4 py-2 has-[>svg]:px-3" />
+            <Skeleton className="h-9 w-9" />
+            <Skeleton className="h-9 w-18 px-4 py-2 has-[>svg]:px-3" />
+          </div>
+        </>
+      );
+
+      break;
+    case "draft":
+      render = (
+        <>
+          <div className="flex flex-row justify-between items-center gap-4 mt-4">
+            <div></div>
+            <Skeleton className="h-9 w-24 px-4 py-2 has-[>svg]:px-3" />
+          </div>
           <Skeleton className="h-[24rem] w-full" />
           <div className="flex flex-row gap-2 justify-center">
             <Skeleton className="h-9 w-18 px-4 py-2 has-[>svg]:px-3" />
@@ -143,7 +164,7 @@ const AdminConfigSuspense = ({ tab }: AdminConfigSuspenseProps) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <Skeleton className="h-9 w-40" />
+      <Skeleton className="h-9 w-60" />
       {render}
     </div>
   );
