@@ -184,3 +184,11 @@ p.is-editor-empty:first-child::before {
 .tiptap pre .hljs {
   background: transparent
 }
+
+.overflow-image {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto;
+}
+
+

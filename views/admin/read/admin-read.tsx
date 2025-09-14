@@ -8,48 +8,17 @@ import Link from "@tiptap/extension-link";
 import { Placeholder } from "@tiptap/extensions";
 import { FontSize, TextStyle } from "@tiptap/extension-text-style";
 import { CodeBlock } from "@/components/tiptap/codeblock";
-import Image from "@tiptap/extension-image";
-import { ImageResize } from "tiptap-extension-resize-image";
 import { format } from "date-fns";
 import { Separator } from "@/components/ui/separator";
+import Image from "@tiptap/extension-image";
+import { useCustomEditor } from "@/hooks/use-custom-editor";
 
 interface AdminReadProps {
   post: PostWithCategory;
 }
 
 const AdminRead = ({ post }: AdminReadProps) => {
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        codeBlock: false,
-      }),
-      Underline,
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        protocols: ["http", "https"],
-        HTMLAttributes: {
-          class: "text-blue-600 hover:text-blue-700 underline underline-offset-2",
-        },
-      }),
-      Placeholder.configure({
-        placeholder: "내용을 입력하세요...",
-      }),
-      TextStyle,
-      FontSize,
-      CodeBlock,
-      ImageResize.configure({ allowBase64: true, inline: true }),
-    ],
-    content: post.content,
-    immediatelyRender: false,
-    editable: false,
-    editorProps: {
-      attributes: {
-        class: "min-h-[370px] focus:!outline-none",
-        spellcheck: "false",
-      },
-    },
-  });
+  const editor = useCustomEditor({ value: post.content, options: { editable: false } });
 
   return (
     <>
@@ -63,7 +32,7 @@ const AdminRead = ({ post }: AdminReadProps) => {
 
         <Separator className="my-4" />
 
-        <EditorContent editor={editor} className="max-w-4xl" />
+        <EditorContent editor={editor} className="w-full sm:max-w-4xl" />
       </div>
     </>
   );
