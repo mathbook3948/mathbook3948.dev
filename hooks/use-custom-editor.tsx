@@ -38,7 +38,7 @@ export const useCustomEditor = ({ value = "", onChange, options }: UseCustomEdit
         allowBase64: true,
         inline: true,
         HTMLAttributes: {
-          class: "mx-auto w-full lg:w-full h-auto",
+          class: "mx-auto w-full h-auto",
         },
       }),
     ],
