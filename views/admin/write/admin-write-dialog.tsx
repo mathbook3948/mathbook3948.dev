@@ -104,10 +104,13 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
     const draftIdx = params.get("draft");
 
     if (draftIdx) {
-      modifyAdminPostDraft({ ...value, postDraftIdx: Number(draftIdx) });
+      await modifyAdminPostDraft({ ...value, postDraftIdx: Number(draftIdx) });
     } else {
-      registAdminPostDraft(value);
+      const res = await registAdminPostDraft(value);
+      router.push(`/admin/write?draft=${res.postDraftIdx}`);
     }
+
+    toast.success("임시저장에 성공했습니다.");
   };
 
   return (

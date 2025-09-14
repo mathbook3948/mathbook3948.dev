@@ -10,7 +10,7 @@ const registAdminPostDraft = async ({
   thumbnail,
   isPublic,
 }: AdminWriteSchemaType) => {
-  await prisma.postDraft.create({
+  return await prisma.postDraft.create({
     data: {
       categoryIdx: categoryIdx,
       title,
