@@ -17,8 +17,8 @@ import AdminWriteSave from "@/views/admin/write/admin-write-save";
 import { useState } from "react";
 import AdminWriteDialog from "@/views/admin/write/admin-write-dialog";
 import { CodeBlock } from "@/components/tiptap/codeblock";
-import { ImageResize } from "tiptap-extension-resize-image";
 import Image from "@tiptap/extension-image";
+import { useCustomEditor } from "@/hooks/use-custom-editor";
 
 interface AdminWriteProps {
   postIdx: number | null;
@@ -57,51 +57,9 @@ const AdminWrite = ({
   /**
    * tiptap 에디터 정의
    * */
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        codeBlock: false,
-      }),
-      Underline,
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        protocols: ["http", "https"],
-        HTMLAttributes: {
-          class: "text-blue-600 hover:text-blue-700 underline underline-offset-2",
-        },
-      }),
-      Placeholder.configure({
-        placeholder: "내용을 입력하세요...",
-      }),
-      TextStyle,
-      FontSize,
-      CodeBlock,
-      Image.configure({
-        allowBase64: true,
-      }),
-      ImageResize.configure({ allowBase64: true }),
-    ],
-    content: form.getValues("content"),
-    immediatelyRender: false,
-    editable: true,
-    editorProps: {
-      attributes: {
-        class: "min-h-[370px] focus:!outline-none",
-        spellcheck: "false",
-      },
-      handlePaste: function (view, event) {
-        event.preventDefault();
-        const text = event.clipboardData?.getData("text/plain");
-        if (text) {
-          view.dispatch(view.state.tr.insertText(text));
-        }
-        return true;
-      },
-    },
-    onUpdate: ({ editor }) => {
-      form.setValue("content", editor.getHTML());
-    },
+  const editor = useCustomEditor({
+    value: form.getValues("content"),
+    onChange: (value: string) => form.setValue("content", value),
   });
 
   const handleSubmit = async (value: AdminWriteSchemaType) => {

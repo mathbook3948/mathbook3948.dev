@@ -12,13 +12,13 @@ import { Category } from "@/types/category-interface";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandInput, CommandItem } from "@/components/ui/command";
 import { CommandList } from "cmdk";
-import getAdminCategoryList from "@/actions/category/get-admin-category-list";
-import registAdminPost from "@/actions/post/regist-admin-post";
-import modifyAdminPost from "@/actions/post/modify-admin-post";
-import registAdminPostDraft from "@/actions/post/regist-admin-post-draft";
+import getAdminCategoryList from "@/actions/admin/category/get-admin-category-list";
+import registAdminPost from "@/actions/admin/post/regist-admin-post";
+import modifyAdminPost from "@/actions/admin/post/modify-admin-post";
+import registAdminPostDraft from "@/actions/admin/post/regist-admin-post-draft";
 import { useRouter, useSearchParams } from "next/navigation";
-import modifyAdminPostDraft from "@/actions/post/modify-admin-post-draft";
-import deleteAdminPostDraftAndRegistPost from "@/actions/post/delete-admin-post-draft-and-regist-post";
+import modifyAdminPostDraft from "@/actions/admin/post/modify-admin-post-draft";
+import deleteAdminPostDraftAndRegistPost from "@/actions/admin/post/delete-admin-post-draft-and-regist-post";
 import { toast } from "sonner";
 
 interface AdminWriteDialogProps {
@@ -104,10 +104,13 @@ const AdminWriteDialog = ({ isOpen, setIsOpen, form }: AdminWriteDialogProps) =>
     const draftIdx = params.get("draft");
 
     if (draftIdx) {
-      modifyAdminPostDraft({ ...value, postDraftIdx: Number(draftIdx) });
+      await modifyAdminPostDraft({ ...value, postDraftIdx: Number(draftIdx) });
     } else {
-      registAdminPostDraft(value);
+      const res = await registAdminPostDraft(value);
+      router.push(`/admin/write?draft=${res.postDraftIdx}`);
     }
+
+    toast.success("임시저장에 성공했습니다.");
   };
 
   return (

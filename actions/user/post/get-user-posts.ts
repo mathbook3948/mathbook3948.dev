@@ -3,16 +3,16 @@
 import { prisma } from "@/lib/prisma";
 import { getGridData } from "@/utils/get-grid-data";
 import { Prisma } from "@prisma/client";
-import { Post, PostWithCategory } from "@/types/post-interface";
+import { PostWithCategory } from "@/types/post-interface";
 import PostOrderByWithRelationInput = Prisma.PostOrderByWithRelationInput;
 
-interface GetAdminPostsProps {
+interface GetUserPostsProps {
   categoryIdx?: number;
   perPage: number;
   page: number;
 }
 
-const getAdminPosts = async ({ categoryIdx, page, perPage }: GetAdminPostsProps) => {
+const getUserPosts = async ({ categoryIdx, page, perPage }: GetUserPostsProps) => {
   const select = {
     postIdx: true,
     categoryIdx: true,
@@ -26,6 +26,7 @@ const getAdminPosts = async ({ categoryIdx, page, perPage }: GetAdminPostsProps)
 
   let where: any = {
     isDeleted: false,
+    isPublic: true,
     category: {
       isDeleted: false,
     },
@@ -58,4 +59,4 @@ const getAdminPosts = async ({ categoryIdx, page, perPage }: GetAdminPostsProps)
   return getGridData({ data: posts as unknown as PostWithCategory[], page, perPage, totalCount });
 };
 
-export default getAdminPosts;
+export default getUserPosts;

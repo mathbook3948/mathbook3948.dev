@@ -39,7 +39,7 @@ const RootLayout = async ({
     <html lang="ko">
       <body className={pretendard.className}>
         <main className="antialiased min-h-screen">
-          <div className="w-full lg:max-w-4xl px-4 mx-auto">
+          <div className="w-full max-w-4xl px-4 mx-auto">
             <RootProvider accessToken={accessToken}>
               <Navbar appTitle={appTitle} />
               {children}

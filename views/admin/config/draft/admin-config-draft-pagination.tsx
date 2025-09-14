@@ -12,7 +12,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Pagination } from "@/types/pagination-interface";
 
-interface AdminConfigPostPaginationProps {
+interface AdminConfigDraftPaginationProps {
   pagination: Pagination;
 }
 
@@ -33,8 +33,14 @@ function buildPages(current: number, total: number) {
   return Array.from(pages).sort((a, b) => a - b);
 }
 
-const AdminConfigPostPagination = ({ pagination }: AdminConfigPostPaginationProps) => {
-  const { page, totalPages, hasPrev, hasNext, perPage } = pagination;
+const AdminConfigDraftPagination = ({ pagination }: AdminConfigDraftPaginationProps) => {
+  const { page, totalPages, hasPrev, hasNext, perPage } = pagination ?? {
+    page: 0,
+    totalPages: 0,
+    hasPrev: false,
+    hasNext: false,
+    perPage: 10,
+  };
 
   const pathname = usePathname();
   const router = useRouter();
@@ -86,4 +92,4 @@ const AdminConfigPostPagination = ({ pagination }: AdminConfigPostPaginationProp
   );
 };
 
-export default AdminConfigPostPagination;
+export default AdminConfigDraftPagination;
