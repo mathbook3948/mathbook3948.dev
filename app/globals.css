@@ -174,8 +174,7 @@ p.is-editor-empty:first-child::before {
 
 /*Tiptap codeblock*/
 .tiptap pre {
-  background: #0b1020;
-  color: #e5e7eb;
+  background: var(--muted);
   border-radius: .75rem;
   padding: .75rem 1rem;
   overflow: auto
